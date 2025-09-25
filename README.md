@@ -42,3 +42,9 @@ no hace falta hacerlos manualmente y sobre todo funcionan correctamente.
 Además permite ser usados como dto facilmente. También una ventaja
 esque los record son inmutables por lo que permiten una mejor consistencia
 de los datos. 
+
+## Código de la clase **Note**
+https://github.com/Alejandro-Bravo2/dwesJavaGeoNotes/blob/eeb3f41e60b5b580712f433e99310a314b1ad1d8/src/main/java/com/example/geonotesteaching/Note.java#L8-L31
+
+## Código de la clase **LegacyPoint**
+https://github.com/Alejandro-Bravo2/dwesJavaGeoNotes/blob/eeb3f41e60b5b580712f433e99310a314b1ad1d8/src/main/java/com/example/geonotesteaching/LegacyPoint.java#L3-L52
