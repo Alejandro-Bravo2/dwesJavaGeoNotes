@@ -1,0 +1,9 @@
+{
+    "gradle.autoImportOnSave": true,
+    "plugins": [
+        {
+            "type": "add",
+            "pluginName": "fleet.maven"
+        }
+    ]
+}

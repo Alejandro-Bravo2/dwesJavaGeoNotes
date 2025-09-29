@@ -1,4 +1,4 @@
-package com.example.geonotesteaching;
+package com.example.geonotesteaching.services;
 
 public class LegacyPoint {
     double lat;

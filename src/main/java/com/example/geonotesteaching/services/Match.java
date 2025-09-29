@@ -1,10 +1,13 @@
-package com.example.geonotesteaching;
+package com.example.geonotesteaching.services;
+
+import com.example.geonotesteaching.geo.GeoArea;
+import com.example.geonotesteaching.geo.GeoPoint;
 
 // Utilidades de “matching” y geolocalización.
 // Un 'record' que contiene un método para usar 'record patterns'.
 // El 'record pattern' permite desestructurar un record directamente en los parámetros
 // de un método o en un 'if' o 'switch', lo que es muy útil para la validación y el filtrado.
-final class Match {
+public final class Match {
     public static boolean isInArea(GeoPoint point, GeoArea area) {
         return point.lat() >= area.topLeft().lat() &&
                 point.lat() <= area.bottomRight().lat() &&
