@@ -13,7 +13,7 @@ Incluye Gradle Wrapper (scripts) para facilitar la ejecución.
 
   ## Bloque A1 - Validación y Excepciones
 
-En mi parte (A1) he trabajado en el record `Note` añadiendo validaciones básicas:
+Se ha trabajado en el record `Note` añadiendo validaciones básicas:
 
 - El **título**:
   - No puede ser `null`.
@@ -48,3 +48,30 @@ https://github.com/Alejandro-Bravo2/dwesJavaGeoNotes/blob/eeb3f41e60b5b580712f43
 
 ## Código de la clase **LegacyPoint**
 https://github.com/Alejandro-Bravo2/dwesJavaGeoNotes/blob/eeb3f41e60b5b580712f433e99310a314b1ad1d8/src/main/java/com/example/geonotesteaching/LegacyPoint.java#L3-L52
+
+  ## Bloque B1 - Nuevo subtipo: Video
+
+En este bloque se ha ampliado la jerarquía sellada Attachment añadiendo un nuevo record.
+Validaciones incluidas:
+
+- **Url**:
+
+  - No puede ser `null` ni estar en blanco. 
+  - Se recorta con `trim()`. 
+  - Debe comenzar por `http://` o `https://`. 
+  - `width` debe ser positivo. 
+  - `seconds` no puede ser negativo.
+
+- Cambios en la jerarquía:
+
+Se actualizó Attachment (permits …) para incluir `Video` como subtipo sellado.
+
+- Cambios en Describe.describeAttachment
+
+Se añadió soporte para diferenciar entre:
+
+  - Video normal → devuelve "🎬 Vídeo".
+  - Video largo (más de 120 segundos) → devuelve "🎬 Vídeo largo".
+
+Se eliminó el default para que el compilador obligue a cubrir todos los subtipos de Attachment.
+
