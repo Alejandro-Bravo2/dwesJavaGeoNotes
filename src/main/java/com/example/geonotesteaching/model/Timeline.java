@@ -1,4 +1,7 @@
-package com.example.geonotesteaching;
+package com.example.geonotesteaching.model;
+
+import com.example.geonotesteaching.exporter.AbstractExporter;
+import com.example.geonotesteaching.exporter.Exporter;
 
 import java.util.Comparator;
 import java.util.LinkedHashMap;

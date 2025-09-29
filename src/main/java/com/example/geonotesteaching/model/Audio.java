@@ -1,4 +1,6 @@
-package com.example.geonotesteaching;
+package com.example.geonotesteaching.model;
+
+import com.example.geonotesteaching.services.Attachment;
 
 public record Audio(String url, int duration) implements Attachment {
     public Audio {

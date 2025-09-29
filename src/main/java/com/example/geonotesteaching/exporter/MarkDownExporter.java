@@ -1,5 +1,8 @@
-package com.example.geonotesteaching;
+package com.example.geonotesteaching.exporter;
 
+
+import com.example.geonotesteaching.model.Note;
+import com.example.geonotesteaching.Timeline;
 
 public final class MarkDownExporter implements Exporter {
 

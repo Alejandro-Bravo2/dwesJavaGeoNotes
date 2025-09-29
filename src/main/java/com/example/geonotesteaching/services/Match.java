@@ -1,4 +1,7 @@
-package com.example.geonotesteaching;
+package com.example.geonotesteaching.services;
+
+import com.example.geonotesteaching.geo.GeoArea;
+import com.example.geonotesteaching.geo.GeoPoint;
 
 // Utilidades de “matching” y geolocalización.
 // Un 'record' que contiene un método para usar 'record patterns'.

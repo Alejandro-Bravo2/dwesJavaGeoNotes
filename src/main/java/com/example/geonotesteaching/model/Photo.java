@@ -1,4 +1,6 @@
-package com.example.geonotesteaching;
+package com.example.geonotesteaching.model;
+
+import com.example.geonotesteaching.services.Attachment;
 
 // Los 'records' también pueden implementar interfaces. Son una forma limpia de
 // definir los subtipos de la interfaz sellada.
