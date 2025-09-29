@@ -75,3 +75,13 @@ Se añadió soporte para diferenciar entre:
 
 Se eliminó el default para que el compilador obligue a cubrir todos los subtipos de Attachment.
 
+### Apartado C1 – Export JSON pretty
+
+En este ejercicio se ha trabajado en la clase `Timeline.Render` para mejorar la exportación a JSON.  
+Antes la salida se generaba en una sola línea, lo que hacía difícil leer el contenido de cada nota.
+
+Los cambios han sido:
+- Ajustar el **formato con *text blocks*** para que cada campo de la nota aparezca en su propia línea.
+- Escapar las comillas del `content` con `.replace("\"", "\\\"")`, de forma que si el texto incluye comillas el JSON siga siendo válido.
+
+De esta manera, ahora el JSON se muestra **mucho más legible** en textos con comillas.
