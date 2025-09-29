@@ -1,9 +1,9 @@
 package com.example.geonotesteaching.geo;
 
 import com.example.geonotesteaching.exporter.MarkDownExporter;
+import com.example.geonotesteaching.exporter.Timeline;
 import com.example.geonotesteaching.model.*;
-import com.example.geonotesteaching.services.LegacyPoint;
-import com.example.geonotesteaching.services.Match;
+import com.example.geonotesteaching.services.*;
 
 import java.time.Instant;
 import java.util.Scanner;

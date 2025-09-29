@@ -1,7 +1,8 @@
 package com.example.geonotesteaching.model;
 
+
+
 import com.example.geonotesteaching.geo.GeoPoint;
-import com.example.geonotesteaching.services.Attachment;
 
 import java.time.Instant;
 
