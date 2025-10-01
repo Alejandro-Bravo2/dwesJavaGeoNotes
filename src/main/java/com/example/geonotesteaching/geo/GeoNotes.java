@@ -79,7 +79,8 @@ public class GeoNotes {
                     case 3 -> filterNotes();
                     case 4 -> exportNotesToJson();
                     case 5 -> exportMarkdown();
-                    case 6 -> running = false;
+                    case 6 -> ultimasNotas();
+                    case 7 -> running = false;
                     default -> System.out.println("❌ Opción no válida. Inténtalo de nuevo.");
                 }
             } catch (NumberFormatException e) {
@@ -120,7 +121,8 @@ public class GeoNotes {
         System.out.println("3. Filtrar notas por palabra clave");
         System.out.println("4. Exportar notas a JSON (Text Blocks)");
         System.out.println("5. Exportar notas a Markdown");
-        System.out.println("6. Salir");
+        System.out.println("6. Listar las últimas notas");
+        System.out.println("7. Salir");
         System.out.print("Elige una opción: ");
     }
 
@@ -268,5 +270,22 @@ public class GeoNotes {
 
 
 
+    }
+
+    private static void ultimasNotas() {
+        System.out.print("\nIntroduce el número de notas recientes a listar: ");
+        try {
+            int n = Integer.parseInt(scanner.nextLine().trim());
+            var ultimasNotas = timeline.latest(n);
+            if (ultimasNotas.isEmpty()) {
+                System.out.println("Debes introducir un número mayor a 0.");
+                return;
+            }
+            System.out.println("\n--- Últimas " + n + " notas ---");
+            ultimasNotas.forEach(nota -> System.out.printf("ID: %d | %s | %s%n",
+                    nota.id(), nota.title(), nota.content()));
+        } catch (NumberFormatException e) {
+            System.out.println("Entrada no válida. Por favor, ingresa un número entero.");
+        }
     }
 }

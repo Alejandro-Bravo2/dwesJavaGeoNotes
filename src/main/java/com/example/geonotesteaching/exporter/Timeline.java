@@ -8,6 +8,8 @@ import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.List;
+
 // La clase 'Timeline' usa un 'SequencedMap' para mantener las notas en orden de inserción.
 // A diferencia de un HashMap, un 'SequencedMap' garantiza el orden y permite acceder
 // al primer y último elemento de forma eficiente.
@@ -48,5 +50,18 @@ public final class Timeline {
                     }
                     """.formatted(notesList);
         }
+    }
+
+    public List<Note> latest(int n) {
+        List<Note> resultado;
+        if (n <= 0) {
+            resultado = List.of();
+        } else {
+            resultado = notes.values().stream()
+                    .sorted(Comparator.comparing(Note::createdAt).reversed())
+                    .limit(n)
+                    .toList();
+        }
+        return resultado;
     }
 }
