@@ -18,5 +18,10 @@ public record Video(String url, int width, int height, int seconds) implements A
         }
         // Asignación implícita del constructor compacto:
         // this.url = url; this.width = width; this.height = height; this.seconds = seconds;
+<<<<<<< HEAD
 }
 }
+=======
+    }
+}
+>>>>>>> origin/d1-Orden-fecha
