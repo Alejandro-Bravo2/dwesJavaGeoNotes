@@ -80,11 +80,8 @@ public class GeoNotes {
                     case 3 -> filterNotes();
                     case 4 -> exportNotesToJson();
                     case 5 -> exportMarkdown();
-<<<<<<< HEAD
                     case 6 -> busquedaAvanzada();
-=======
                     case 6 -> ultimasNotas();
->>>>>>> origin/d1-Orden-fecha
                     case 7 -> running = false;
                     default -> System.out.println("❌ Opción no válida. Inténtalo de nuevo.");
                 }
@@ -124,11 +121,8 @@ public class GeoNotes {
         System.out.println("3. Filtrar notas por palabra clave");
         System.out.println("4. Exportar notas a JSON (Text Blocks)");
         System.out.println("5. Exportar notas a Markdown");
-<<<<<<< HEAD
         System.out.println("6. Busqueda avanzada");
-=======
         System.out.println("6. Listar las últimas notas");
->>>>>>> origin/d1-Orden-fecha
         System.out.println("7. Salir");
         System.out.print("Elige una opción: ");
     }
