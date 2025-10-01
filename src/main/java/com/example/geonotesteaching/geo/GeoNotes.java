@@ -6,6 +6,7 @@ import com.example.geonotesteaching.model.*;
 import com.example.geonotesteaching.services.*;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /*
@@ -79,7 +80,8 @@ public class GeoNotes {
                     case 3 -> filterNotes();
                     case 4 -> exportNotesToJson();
                     case 5 -> exportMarkdown();
-                    case 6 -> running = false;
+                    case 6 -> busquedaAvanzada();
+                    case 7 -> running = false;
                     default -> System.out.println("❌ Opción no válida. Inténtalo de nuevo.");
                 }
             } catch (NumberFormatException e) {
@@ -94,21 +96,19 @@ public class GeoNotes {
 
 
         // MIS PRUEBAS
-        LegacyPoint lgcyPnt = new LegacyPoint(10,20);
-        LegacyPoint lgcyPnt2 = new LegacyPoint(10,20);
+        LegacyPoint lgcyPnt = new LegacyPoint(10, 20);
+        LegacyPoint lgcyPnt2 = new LegacyPoint(10, 20);
         System.out.println(lgcyPnt.hashCode());
         System.out.println(lgcyPnt2.hashCode());
 
         System.out.println(lgcyPnt2);
 
-        GeoPoint geoPoint = new GeoPoint(10,20);
-        GeoPoint geoPoint2 = new GeoPoint(10,20);
+        GeoPoint geoPoint = new GeoPoint(10, 20);
+        GeoPoint geoPoint2 = new GeoPoint(10, 20);
         System.out.println(geoPoint.hashCode());
         System.out.println(geoPoint2.hashCode());
 
         System.out.println(geoPoint2);
-
-
 
 
     }
@@ -120,7 +120,8 @@ public class GeoNotes {
         System.out.println("3. Filtrar notas por palabra clave");
         System.out.println("4. Exportar notas a JSON (Text Blocks)");
         System.out.println("5. Exportar notas a Markdown");
-        System.out.println("6. Salir");
+        System.out.println("6. Busqueda avanzada");
+        System.out.println("7. Salir");
         System.out.print("Elige una opción: ");
     }
 
@@ -186,6 +187,128 @@ public class GeoNotes {
         });
     }
 
+
+    private static void busquedaAvanzada() {
+
+        System.out.println("Elige una opción para filtrar:");
+        System.out.println("1. Por rango de latitud / longitud");
+        System.out.println("2. Por palabra clave en tittle o content");
+        System.out.println("-----------------------------------------");
+        System.out.println("Escriba su respuesta: ");
+
+        Boolean respuestaValida = Boolean.FALSE;
+
+        do {
+
+            Scanner sc = new Scanner(System.in);
+
+            String opcion = sc.next();
+
+            switch (opcion) {
+                case "1":
+                    busquedaLatitudLongitud();
+                    respuestaValida = Boolean.TRUE;
+                    break;
+
+
+                case "2":
+                    busquedaPalabraClave();
+                    respuestaValida = Boolean.TRUE;
+                    break;
+
+                default:
+                    System.out.println("Has introducido una opción invalida, introduce una opción válida....");
+                    break;
+            }
+        } while (!respuestaValida);
+
+
+    }
+
+    private static void busquedaLatitudLongitud() {
+        Scanner sc = new Scanner(System.in);
+
+
+        System.out.println("Escriba el número inicial para buscar entre ese rango de valores:");
+        String primerRangoFiltro = sc.nextLine();
+
+
+        String expresionRegularParaComprobarNumero = "^\\d{1,99}$";
+
+        if (!primerRangoFiltro.matches(expresionRegularParaComprobarNumero)) {
+            System.out.println("Has introducido valores no numericos en el rango de valores, vuelve a intentarlo:");
+            primerRangoFiltro = sc.nextLine();
+        }
+
+
+        System.out.println("Escriba el número final:");
+        String segundoRangoFiltro = sc.nextLine();
+
+
+        if (!segundoRangoFiltro.matches(expresionRegularParaComprobarNumero)) {
+            System.out.println("Has introducido valores no numericos en el rango de valores, vuelve a intentarlo:");
+            segundoRangoFiltro = sc.nextLine();
+        }
+
+        sc.close();
+
+        ArrayList<Note> listaNotasEncontradas = obtenerNotasEntreRangoDeLocalizacion(primerRangoFiltro, segundoRangoFiltro);
+        mostrarNotasEncontradas(listaNotasEncontradas);
+
+
+    }
+
+    private static ArrayList<Note> obtenerNotasEntreRangoDeLocalizacion(String primerRangoFiltro, String segundoRangoFiltro) {
+        ArrayList<Note> listaNotasCoincididas = new ArrayList<Note>();
+
+        for (Note notaDeLista : timeline.getNotes().values()) {
+            if (notaDeLista.location().lat() > Integer.parseInt(primerRangoFiltro) && notaDeLista.location().lat() < Integer.parseInt(segundoRangoFiltro)) {
+                listaNotasCoincididas.add(notaDeLista);
+            } else if (notaDeLista.location().lon() > Integer.parseInt(primerRangoFiltro) && notaDeLista.location().lon() < Integer.parseInt(segundoRangoFiltro)) {
+                listaNotasCoincididas.add(notaDeLista);
+            }
+        }
+
+        return listaNotasCoincididas;
+    }
+
+
+    private static void mostrarNotasEncontradas(ArrayList<Note> listaNotasCoincididas) {
+        System.out.println("Lista de notas encontradas:");
+        for (Note notaDeLista : listaNotasCoincididas) {
+            System.out.println("Nota: ID:, " + notaDeLista.id() + ", Titulo: " + notaDeLista.title() + ", Contenido: " + notaDeLista.content() + ", Latitud:" + notaDeLista.location().lat() + ", Longitud:" + notaDeLista.location().lon());
+        }
+
+    }
+
+
+    private static void busquedaPalabraClave() {
+
+        Scanner sc = new Scanner(System.in);
+
+
+        System.out.println("Escriba una palabra para filtrar por ella entre los titulos y contenidos de las notas:");
+        String palabraClave = sc.nextLine();
+
+
+        System.out.println("Escriba el número final:");
+        String segundoRangoFiltro = sc.nextLine();
+
+
+        sc.close();
+
+        ArrayList<Note> listaNotasEncontradas = obtenerNotasPorNombre(palabraClave);
+        mostrarNotasEncontradas(listaNotasEncontradas);
+
+
+    }
+
+    private static ArrayList<Note> obtenerNotasPorNombre(String palabraClave) { //TODO FALTA REHACERLA
+        ArrayList<Note> listaNotasCoincididas = new ArrayList<>();
+        return listaNotasCoincididas;
+    }
+
+
     private static void filterNotes() {
         System.out.print("\nIntroduce la palabra clave para filtrar: ");
         var keyword = scanner.nextLine();
@@ -228,11 +351,11 @@ public class GeoNotes {
         System.out.println(json);
     }
 
-    private static void exportMarkdown(){
+    private static void exportMarkdown() {
         MarkDownExporter exportarMarkdown = new MarkDownExporter(timeline);
         String NotasInMarkdown = exportarMarkdown.export();
-        String[] listaNotas =  NotasInMarkdown.split("\n");
-        for (String nota : listaNotas){
+        String[] listaNotas = NotasInMarkdown.split("\n");
+        for (String nota : listaNotas) {
             System.out.println(nota);
         }
         return;
@@ -265,7 +388,6 @@ public class GeoNotes {
          *   pero explica a los alumnos que en Java 21 LinkedHashMap implementa SequencedMap y se puede pedir la vista invertida.
          * - Virtual Threads: demo aparte en el otro proyecto “moderno” (no se usan aquí).
          */
-
 
 
     }
