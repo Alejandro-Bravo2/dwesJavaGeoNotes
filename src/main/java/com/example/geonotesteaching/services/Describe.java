@@ -19,8 +19,21 @@ public final class Describe {
             case Audio audio -> "🎵 Audio";
             case Link l -> "🔗 %s".formatted((l.label() == null || l.label().isEmpty()) ? l.url() : l.label());
             case Video v when v.seconds() > 120 -> " Vídeo largo";
-            case Video v -> " Vídeo ";
+            case Video v -> "Vídeo";
             default -> throw new IllegalStateException("Unexpected value: " + a);
         };
     }
+    public static int mediaPixels(Object o) {
+        int result = 0;
+
+        if (o instanceof Photo p) {
+            result = p.width() * p.height();
+        } else if (o instanceof Video v) {
+            result = v.width() * v.height();
+        }
+
+        return result;
+
+    }
+
 }
