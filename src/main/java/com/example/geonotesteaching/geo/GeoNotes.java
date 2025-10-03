@@ -191,7 +191,8 @@ public class GeoNotes {
 
 
     private static void busquedaAvanzada() {
-
+        System.out.println("\n");
+        System.out.println("\n--- Busca avanzada ---");
         System.out.println("Elige una opción para filtrar:");
         System.out.println("1. Por rango de latitud / longitud");
         System.out.println("2. Por palabra clave en tittle o content");
@@ -202,9 +203,7 @@ public class GeoNotes {
 
         do {
 
-            Scanner sc = new Scanner(System.in);
-
-            String opcion = sc.next();
+            String opcion = scanner.next();
 
             switch (opcion) {
                 case "1":
@@ -228,31 +227,28 @@ public class GeoNotes {
     }
 
     private static void busquedaLatitudLongitud() {
-        Scanner sc = new Scanner(System.in);
 
 
         System.out.println("Escriba el número inicial para buscar entre ese rango de valores:");
-        String primerRangoFiltro = sc.nextLine();
+        String primerRangoFiltro = scanner.nextLine();
 
 
         String expresionRegularParaComprobarNumero = "^\\d{1,99}$";
 
         if (!primerRangoFiltro.matches(expresionRegularParaComprobarNumero)) {
             System.out.println("Has introducido valores no numericos en el rango de valores, vuelve a intentarlo:");
-            primerRangoFiltro = sc.nextLine();
+            primerRangoFiltro = scanner.nextLine();
         }
 
 
         System.out.println("Escriba el número final:");
-        String segundoRangoFiltro = sc.nextLine();
+        String segundoRangoFiltro = scanner.nextLine();
 
 
         if (!segundoRangoFiltro.matches(expresionRegularParaComprobarNumero)) {
             System.out.println("Has introducido valores no numericos en el rango de valores, vuelve a intentarlo:");
-            segundoRangoFiltro = sc.nextLine();
+            segundoRangoFiltro = scanner.nextLine();
         }
-
-        sc.close();
 
         ArrayList<Note> listaNotasEncontradas = obtenerNotasEntreRangoDeLocalizacion(primerRangoFiltro, segundoRangoFiltro);
         mostrarNotasEncontradas(listaNotasEncontradas);
@@ -286,27 +282,29 @@ public class GeoNotes {
 
     private static void busquedaPalabraClave() {
 
-        Scanner sc = new Scanner(System.in);
 
 
         System.out.println("Escriba una palabra para filtrar por ella entre los titulos y contenidos de las notas:");
-        String palabraClave = sc.nextLine();
+        String palabraClaveEntrada = scanner.next();
 
 
-        System.out.println("Escriba el número final:");
-        String segundoRangoFiltro = sc.nextLine();
-
-
-        sc.close();
-
-        ArrayList<Note> listaNotasEncontradas = obtenerNotasPorNombre(palabraClave);
+        ArrayList<Note> listaNotasEncontradas = obtenerNotasPorNombre(palabraClaveEntrada);
         mostrarNotasEncontradas(listaNotasEncontradas);
 
 
     }
 
-    private static ArrayList<Note> obtenerNotasPorNombre(String palabraClave) { //TODO FALTA REHACERLA
+    private static ArrayList<Note> obtenerNotasPorNombre(String palabraClave) {
         ArrayList<Note> listaNotasCoincididas = new ArrayList<>();
+
+
+        for (Note notaDeLista : timeline.getNotes().values()) {
+            if (notaDeLista.content().contains(palabraClave)) {
+                listaNotasCoincididas.add(notaDeLista);
+            } else if (notaDeLista.title().contains(palabraClave)) {
+                listaNotasCoincididas.add(notaDeLista);
+            }
+        }
         return listaNotasCoincididas;
     }
 
