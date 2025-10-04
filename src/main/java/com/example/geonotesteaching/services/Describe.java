@@ -17,7 +17,7 @@ public final class Describe {
                 yield "🎵 Audio largo";
             }
             case Audio audio -> "🎵 Audio";
-            case Link l -> "🔗 %s".formatted((l.label() == null || l.label().isEmpty()) ? l.url() : l.label());
+            case Link l -> "🔗 %s".formatted(l.effectiveLabel());
             case Video v when v.seconds() > 120 -> " Vídeo largo";
             case Video v -> "Vídeo";
             default -> throw new IllegalStateException("Unexpected value: " + a);
