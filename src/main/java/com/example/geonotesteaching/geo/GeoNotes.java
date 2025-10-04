@@ -82,7 +82,8 @@ public class GeoNotes {
                     case 5 -> exportMarkdown();
                     case 6 -> busquedaAvanzada();
                     case 7 -> ultimasNotas();
-                    case 8 -> running = false;
+                    case 8 -> obtenerNotasPorUbicacion();
+                    case 9 -> running = false;
                     default -> System.out.println("❌ Opción no válida. Inténtalo de nuevo.");
                 }
             } catch (NumberFormatException e) {
@@ -123,7 +124,8 @@ public class GeoNotes {
         System.out.println("5. Exportar notas a Markdown");
         System.out.println("6. Busqueda avanzada");
         System.out.println("7. Listar las últimas notas");
-        System.out.println("8. Salir");
+        System.out.println("8. Obtener notas por ubicación");
+        System.out.println("9. Salir");
         System.out.print("Elige una opción: ");
     }
 
@@ -165,6 +167,50 @@ public class GeoNotes {
         } catch (IllegalArgumentException e) {
             System.out.println("❌ Error: " + e.getMessage());
         }
+    }
+
+    private static void obtenerNotasPorUbicacion(){
+        System.out.println();
+        System.out.println("--- FILTRAR NOTAS POR UBICACIÓN ---");
+        System.out.println("Opciones disponibles");
+        System.out.println("1. Equador");
+        System.out.println("2. Origen");
+        System.out.println("3. Greenwitch");
+        System.out.println("Elige una opción:");
+
+        ArrayList<Note> notasEncontradas = new ArrayList<>();
+
+        String opcion;
+        do {
+            opcion = scanner.nextLine().trim();
+            if (!opcion.equals("1") && !opcion.equals("2") && !opcion.equals("3")){
+                System.out.println("Has introducido una opción no válida, vuelve a intentarlo.");
+            }
+        } while (!opcion.trim().equals("1") && !opcion.trim().equals("2") && !opcion.trim().equals("3"));
+
+
+        String opcionUbicacion = "";
+        switch (opcion) {
+            case "1": opcionUbicacion = "Equador"; break;
+            case "2": opcionUbicacion = "Origen"; break;
+            case "3": opcionUbicacion = "Greenwitch"; break;
+        }
+
+
+        for (Note notaConcreta : timeline.getNotes().values() ){
+            if (Match.where(notaConcreta.location()) == opcionUbicacion){
+                notasEncontradas.add(notaConcreta);
+            }
+        }
+        System.out.println("--- Notas que coinciden con la ubicación deseada ---");
+        if (notasEncontradas.isEmpty()){
+            System.out.println("No hay notas encontradas");
+        } else {
+            for (Note nota : notasEncontradas){
+                System.out.println(nota);
+            }
+        }
+
     }
 
     private static void listNotes() {
