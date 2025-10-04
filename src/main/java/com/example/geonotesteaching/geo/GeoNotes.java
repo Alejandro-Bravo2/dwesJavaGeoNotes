@@ -1,6 +1,12 @@
-package com.example.geonotesteaching;
+package com.example.geonotesteaching.geo;
+
+import com.example.geonotesteaching.exporter.MarkDownExporter;
+import com.example.geonotesteaching.exporter.Timeline;
+import com.example.geonotesteaching.model.*;
+import com.example.geonotesteaching.services.*;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /*
@@ -73,7 +79,11 @@ public class GeoNotes {
                     case 2 -> listNotes();
                     case 3 -> filterNotes();
                     case 4 -> exportNotesToJson();
-                    case 5 -> running = false;
+                    case 5 -> exportMarkdown();
+                    case 6 -> busquedaAvanzada();
+                    case 7 -> ultimasNotas();
+                    case 8 -> obtenerNotasPorUbicacion();
+                    case 9 -> running = false;
                     default -> System.out.println("❌ Opción no válida. Inténtalo de nuevo.");
                 }
             } catch (NumberFormatException e) {
@@ -85,6 +95,24 @@ public class GeoNotes {
             }
         }
         System.out.println("¡Gracias por usar GeoNotes! 👋");
+
+
+        // MIS PRUEBAS
+        LegacyPoint lgcyPnt = new LegacyPoint(10, 20);
+        LegacyPoint lgcyPnt2 = new LegacyPoint(10, 20);
+        System.out.println(lgcyPnt.hashCode());
+        System.out.println(lgcyPnt2.hashCode());
+
+        System.out.println(lgcyPnt2);
+
+        GeoPoint geoPoint = new GeoPoint(10, 20);
+        GeoPoint geoPoint2 = new GeoPoint(10, 20);
+        System.out.println(geoPoint.hashCode());
+        System.out.println(geoPoint2.hashCode());
+
+        System.out.println(geoPoint2);
+
+
     }
 
     private static void printMenu() {
@@ -93,7 +121,11 @@ public class GeoNotes {
         System.out.println("2. Listar todas las notas");
         System.out.println("3. Filtrar notas por palabra clave");
         System.out.println("4. Exportar notas a JSON (Text Blocks)");
-        System.out.println("5. Salir");
+        System.out.println("5. Exportar notas a Markdown");
+        System.out.println("6. Busqueda avanzada");
+        System.out.println("7. Listar las últimas notas");
+        System.out.println("8. Obtener notas por ubicación");
+        System.out.println("9. Salir");
         System.out.print("Elige una opción: ");
     }
 
@@ -137,6 +169,50 @@ public class GeoNotes {
         }
     }
 
+    private static void obtenerNotasPorUbicacion(){
+        System.out.println();
+        System.out.println("--- FILTRAR NOTAS POR UBICACIÓN ---");
+        System.out.println("Opciones disponibles");
+        System.out.println("1. Equador");
+        System.out.println("2. Origen");
+        System.out.println("3. Greenwitch");
+        System.out.println("Elige una opción:");
+
+        ArrayList<Note> notasEncontradas = new ArrayList<>();
+
+        String opcion;
+        do {
+            opcion = scanner.nextLine().trim();
+            if (!opcion.equals("1") && !opcion.equals("2") && !opcion.equals("3")){
+                System.out.println("Has introducido una opción no válida, vuelve a intentarlo.");
+            }
+        } while (!opcion.trim().equals("1") && !opcion.trim().equals("2") && !opcion.trim().equals("3"));
+
+
+        String opcionUbicacion = "";
+        switch (opcion) {
+            case "1": opcionUbicacion = "Equador"; break;
+            case "2": opcionUbicacion = "Origen"; break;
+            case "3": opcionUbicacion = "Greenwitch"; break;
+        }
+
+
+        for (Note notaConcreta : timeline.getNotes().values() ){
+            if (Match.where(notaConcreta.location()) == opcionUbicacion){
+                notasEncontradas.add(notaConcreta);
+            }
+        }
+        System.out.println("--- Notas que coinciden con la ubicación deseada ---");
+        if (notasEncontradas.isEmpty()){
+            System.out.println("No hay notas encontradas");
+        } else {
+            for (Note nota : notasEncontradas){
+                System.out.println(nota);
+            }
+        }
+
+    }
+
     private static void listNotes() {
         System.out.println("\n--- Notas disponibles ---");
         if (timeline.getNotes().isEmpty()) {
@@ -158,6 +234,126 @@ public class GeoNotes {
                     id, note.title(), note.content(), region, attachmentInfo);
         });
     }
+
+
+    private static void busquedaAvanzada() {
+        System.out.println("\n");
+        System.out.println("\n--- Busca avanzada ---");
+        System.out.println("Elige una opción para filtrar:");
+        System.out.println("1. Por rango de latitud / longitud");
+        System.out.println("2. Por palabra clave en tittle o content");
+        System.out.println("-----------------------------------------");
+        System.out.println("Escriba su respuesta: ");
+
+        Boolean respuestaValida = Boolean.FALSE;
+
+        do {
+
+            String opcion = scanner.next();
+
+            switch (opcion) {
+                case "1":
+                    busquedaLatitudLongitud();
+                    respuestaValida = Boolean.TRUE;
+                    break;
+
+
+                case "2":
+                    busquedaPalabraClave();
+                    respuestaValida = Boolean.TRUE;
+                    break;
+
+                default:
+                    System.out.println("Has introducido una opción invalida, introduce una opción válida....");
+                    break;
+            }
+        } while (!respuestaValida);
+
+
+    }
+
+    private static void busquedaLatitudLongitud() {
+
+
+        System.out.println("Escriba el número inicial para buscar entre ese rango de valores:");
+        String primerRangoFiltro = scanner.nextLine();
+
+
+        String expresionRegularParaComprobarNumero = "^\\d{1,99}$";
+
+        if (!primerRangoFiltro.matches(expresionRegularParaComprobarNumero)) {
+            System.out.println("Has introducido valores no numericos en el rango de valores, vuelve a intentarlo:");
+            primerRangoFiltro = scanner.nextLine();
+        }
+
+
+        System.out.println("Escriba el número final:");
+        String segundoRangoFiltro = scanner.nextLine();
+
+
+        if (!segundoRangoFiltro.matches(expresionRegularParaComprobarNumero)) {
+            System.out.println("Has introducido valores no numericos en el rango de valores, vuelve a intentarlo:");
+            segundoRangoFiltro = scanner.nextLine();
+        }
+
+        ArrayList<Note> listaNotasEncontradas = obtenerNotasEntreRangoDeLocalizacion(primerRangoFiltro, segundoRangoFiltro);
+        mostrarNotasEncontradas(listaNotasEncontradas);
+
+
+    }
+
+    private static ArrayList<Note> obtenerNotasEntreRangoDeLocalizacion(String primerRangoFiltro, String segundoRangoFiltro) {
+        ArrayList<Note> listaNotasCoincididas = new ArrayList<Note>();
+
+        for (Note notaDeLista : timeline.getNotes().values()) {
+            if (notaDeLista.location().lat() > Integer.parseInt(primerRangoFiltro) && notaDeLista.location().lat() < Integer.parseInt(segundoRangoFiltro)) {
+                listaNotasCoincididas.add(notaDeLista);
+            } else if (notaDeLista.location().lon() > Integer.parseInt(primerRangoFiltro) && notaDeLista.location().lon() < Integer.parseInt(segundoRangoFiltro)) {
+                listaNotasCoincididas.add(notaDeLista);
+            }
+        }
+
+        return listaNotasCoincididas;
+    }
+
+
+    private static void mostrarNotasEncontradas(ArrayList<Note> listaNotasCoincididas) {
+        System.out.println("Lista de notas encontradas:");
+        for (Note notaDeLista : listaNotasCoincididas) {
+            System.out.println("Nota: ID:, " + notaDeLista.id() + ", Titulo: " + notaDeLista.title() + ", Contenido: " + notaDeLista.content() + ", Latitud:" + notaDeLista.location().lat() + ", Longitud:" + notaDeLista.location().lon());
+        }
+
+    }
+
+
+    private static void busquedaPalabraClave() {
+
+
+
+        System.out.println("Escriba una palabra para filtrar por ella entre los titulos y contenidos de las notas:");
+        String palabraClaveEntrada = scanner.next();
+
+
+        ArrayList<Note> listaNotasEncontradas = obtenerNotasPorNombre(palabraClaveEntrada);
+        mostrarNotasEncontradas(listaNotasEncontradas);
+
+
+    }
+
+    private static ArrayList<Note> obtenerNotasPorNombre(String palabraClave) {
+        ArrayList<Note> listaNotasCoincididas = new ArrayList<>();
+
+
+        for (Note notaDeLista : timeline.getNotes().values()) {
+            if (notaDeLista.content().contains(palabraClave)) {
+                listaNotasCoincididas.add(notaDeLista);
+            } else if (notaDeLista.title().contains(palabraClave)) {
+                listaNotasCoincididas.add(notaDeLista);
+            }
+        }
+        return listaNotasCoincididas;
+    }
+
 
     private static void filterNotes() {
         System.out.print("\nIntroduce la palabra clave para filtrar: ");
@@ -201,6 +397,16 @@ public class GeoNotes {
         System.out.println(json);
     }
 
+    private static void exportMarkdown() {
+        MarkDownExporter exportarMarkdown = new MarkDownExporter(timeline);
+        String NotasInMarkdown = exportarMarkdown.export();
+        String[] listaNotas = NotasInMarkdown.split("\n");
+        for (String nota : listaNotas) {
+            System.out.println(nota);
+        }
+        return;
+    }
+
     private static void seedExamples() {
         /*
          * Semilla de ejemplo para la tarea Gradle 'examples'.
@@ -228,5 +434,24 @@ public class GeoNotes {
          *   pero explica a los alumnos que en Java 21 LinkedHashMap implementa SequencedMap y se puede pedir la vista invertida.
          * - Virtual Threads: demo aparte en el otro proyecto “moderno” (no se usan aquí).
          */
+
+
+    }
+
+    private static void ultimasNotas() {
+        System.out.print("\nIntroduce el número de notas recientes a listar: ");
+        try {
+            int n = Integer.parseInt(scanner.nextLine().trim());
+            var ultimasNotas = timeline.latest(n);
+            if (ultimasNotas.isEmpty()) {
+                System.out.println("Debes introducir un número mayor a 0.");
+                return;
+            }
+            System.out.println("\n--- Últimas " + n + " notas ---");
+            ultimasNotas.forEach(nota -> System.out.printf("ID: %d | %s | %s%n",
+                    nota.id(), nota.title(), nota.content()));
+        } catch (NumberFormatException e) {
+            System.out.println("Entrada no válida. Por favor, ingresa un número entero.");
+        }
     }
 }
