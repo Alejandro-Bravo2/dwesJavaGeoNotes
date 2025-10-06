@@ -130,11 +130,11 @@ En este bloque se ha trabajado en la clase `Timeline` para crear un método que 
 
 ### Método latest en la clase Timeline:
 
-https://github.com/Alejandro-Bravo2/dwesJavaGeoNotes/blob/0c78c1b86fbc6b9f0b40863df3fdc85d3e11a856/src/main/java/com/example/geonotesteaching/exporter/Timeline.java#L56C5-L71C6
+https://github.com/Alejandro-Bravo2/dwesJavaGeoNotes/blob/0c78c1b86fbc6b9f0b40863df3fdc85d3e11a856/src/main/java/com/example/geonotesteaching/geo/GeoNotes.java#L119-L132
 
 ### Opción de menú en la clase GeoNotes:
 
-https://github.com/Alejandro-Bravo2/dwesJavaGeoNotes/blob/0c78c1b86fbc6b9f0b40863df3fdc85d3e11a856/src/main/java/com/example/geonotesteaching/geo/GeoNotes.java#L77C17-L89C17
+https://github.com/Alejandro-Bravo2/dwesJavaGeoNotes/blob/0c78c1b86fbc6b9f0b40863df3fdc85d3e11a856/src/main/java/com/example/geonotesteaching/geo/GeoNotes.java#L77-L89
 
 ### Funcionamiento del método
 
@@ -147,7 +147,8 @@ Se ha añadido una nueva opción en el menú principal bajo el nombre “Listar 
 Esta opción solicita al usuario un número y muestra las `n` notas más recientes con su ID, título y contenido.
 En caso de que no existan notas, el programa muestra un mensaje informativo.
 
-https://github.com/Alejandro-Bravo2/dwesJavaGeoNotes/blob/0c78c1b86fbc6b9f0b40863df3fdc85d3e11a856/src/main/java/com/example/geonotesteaching/geo/GeoNotes.java#L119C5-L132C5
+https://github.com/Alejandro-Bravo2/dwesJavaGeoNotes/blob/0c78c1b86fbc6b9f0b40863df3fdc85d3e11a856/src/main/java/com/example/geonotesteaching/geo/GeoNotes.java#L119-L132
+
 ### Resultado
 
 Con esta mejora, el usuario puede consultar de forma rápida las últimas notas creadas sin tener que revisar toda la lista completa.
@@ -197,7 +198,7 @@ En este bloque se ha trabajado en la clase `Describe` para introducir un nuevo m
 
 ### Método creado en la clase Describe:
 
-https://github.com/Alejandro-Bravo2/dwesJavaGeoNotes/blob/0c78c1b86fbc6b9f0b40863df3fdc85d3e11a856/src/main/java/com/example/geonotesteaching/services/Describe.java#L26C5-L37C6
+https://github.com/Alejandro-Bravo2/dwesJavaGeoNotes/blob/0c78c1b86fbc6b9f0b40863df3fdc85d3e11a856/src/main/java/com/example/geonotesteaching/services/Describe.java#L26-L37
 
 ### Funcionamiento
 
@@ -230,7 +231,7 @@ En este bloque se ha trabajado en la clase `GeoNotes`, concretamente en el méto
 
 ### Método modificado en la clase GeoNotes:
 
-https://github.com/Alejandro-Bravo2/dwesJavaGeoNotes/blob/0c78c1b86fbc6b9f0b40863df3fdc85d3e11a856/src/main/java/com/example/geonotesteaching/geo/GeoNotes.java#L134C5-L177C6
+https://github.com/Alejandro-Bravo2/dwesJavaGeoNotes/blob/0c78c1b86fbc6b9f0b40863df3fdc85d3e11a856/src/main/java/com/example/geonotesteaching/geo/GeoNotes.java#L134-L177
 
 ### Cambios realizados
 Antes si el usuario introducía un texto en lugar de un número al escribir la latitud o longitud, el programa lanzaba una excepción y se detenía.  
@@ -268,7 +269,7 @@ https://github.com/Alejandro-Bravo2/dwesJavaGeoNotes/blob/0c78c1b86fbc6b9f0b4086
 
 **Método `reserved`**
 
-https://github.com/Alejandro-Bravo2/dwesJavaGeoNotes/blob/0c78c1b86fbc6b9f0b40863df3fdc85d3e11a856/src/main/java/com/example/geonotesteaching/exporter/Timeline.java#L69C5-L71C6
+https://github.com/Alejandro-Bravo2/dwesJavaGeoNotes/blob/0c78c1b86fbc6b9f0b40863df3fdc85d3e11a856/src/main/java/com/example/geonotesteaching/exporter/Timeline.java#L69-L71
 
 ### Funcionamiento
 El tipo de mapa interno se cambió a `SequencedMap<Long, Note>` para aprovechar la función `reversed()`.  
@@ -277,7 +278,7 @@ Con esto se puede obtener la colección de notas en orden inverso (de la más re
 ### Cambios en la CLI
 Se añadió una opción en el menú llamada **“Listar notas en orden inverso”**, que muestra las notas usando el nuevo método `reversed()`.
 
-https://github.com/Alejandro-Bravo2/dwesJavaGeoNotes/blob/0c78c1b86fbc6b9f0b40863df3fdc85d3e11a856/src/main/java/com/example/geonotesteaching/geo/GeoNotes.java#L119C5-L132C6
+https://github.com/Alejandro-Bravo2/dwesJavaGeoNotes/blob/0c78c1b86fbc6b9f0b40863df3fdc85d3e11a856/src/main/java/com/example/geonotesteaching/geo/GeoNotes.java#L119-L132
 
 ### Resultado
 Con esta mejora, el proyecto incorpora una de las novedades más actuales de **Java 21**, demostrando cómo combinar estructuras clásicas como `LinkedHashMap` con las nuevas APIs modernas para obtener código más claro y funcional.
