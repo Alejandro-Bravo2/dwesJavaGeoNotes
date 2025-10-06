@@ -130,7 +130,7 @@ En este bloque se ha trabajado en la clase `Timeline` para crear un método que 
 
 ### Método latest en la clase Timeline:
 
-https://github.com/Alejandro-Bravo2/dwesJavaGeoNotes/blob/0c78c1b86fbc6b9f0b40863df3fdc85d3e11a856/src/main/java/com/example/geonotesteaching/geo/GeoNotes.java#L119-L132
+https://github.com/Alejandro-Bravo2/dwesJavaGeoNotes/blob/0c78c1b86fbc6b9f0b40863df3fdc85d3e11a856/src/main/java/com/example/geonotesteaching/geo/GeoNotes.java#L56-L71
 
 ### Opción de menú en la clase GeoNotes:
 
