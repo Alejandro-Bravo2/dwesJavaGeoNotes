@@ -130,11 +130,11 @@ En este bloque se ha trabajado en la clase `Timeline` para crear un método que 
 
 ### Método latest en la clase Timeline:
 
-https://github.com/Alejandro-Bravo2/dwesJavaGeoNotes/blob/main/src/main/java/com/example/geonotesteaching/exporter/Timeline.java#L35-L39
+https://github.com/Alejandro-Bravo2/dwesJavaGeoNotes/blob/0c78c1b86fbc6b9f0b40863df3fdc85d3e11a856/src/main/java/com/example/geonotesteaching/exporter/Timeline.java#L56C5-L71C6
 
 ### Opción de menú en la clase GeoNotes:
 
-https://github.com/Alejandro-Bravo2/dwesJavaGeoNotes/blob/f478b02558d0b2084fabb77a43f8a9b41a34aaa6/src/main/java/com/example/geonotesteaching/geo/GeoNotes.java#L77
+https://github.com/Alejandro-Bravo2/dwesJavaGeoNotes/blob/0c78c1b86fbc6b9f0b40863df3fdc85d3e11a856/src/main/java/com/example/geonotesteaching/geo/GeoNotes.java#L77C17-L89C17
 
 ### Funcionamiento del método
 
@@ -147,8 +147,7 @@ Se ha añadido una nueva opción en el menú principal bajo el nombre “Listar 
 Esta opción solicita al usuario un número y muestra las `n` notas más recientes con su ID, título y contenido.
 En caso de que no existan notas, el programa muestra un mensaje informativo.
 
-https://github.com/Alejandro-Bravo2/dwesJavaGeoNotes/blob/f478b02558d0b2084fabb77a43f8a9b41a34aaa6/src/main/java/com/example/geonotesteaching/geo/GeoNotes.java#L126
-
+https://github.com/Alejandro-Bravo2/dwesJavaGeoNotes/blob/0c78c1b86fbc6b9f0b40863df3fdc85d3e11a856/src/main/java/com/example/geonotesteaching/geo/GeoNotes.java#L119C5-L132C5
 ### Resultado
 
 Con esta mejora, el usuario puede consultar de forma rápida las últimas notas creadas sin tener que revisar toda la lista completa.
@@ -197,9 +196,11 @@ Una vez se ha recorrido todo el for lo que se realiza es una llamada a una funci
 En este bloque se ha trabajado en la clase `Describe` para introducir un nuevo método que utiliza **pattern matching con `instanceof`**, una característica introducida en las últimas versiones de Java.
 
 ### Método creado en la clase Describe:
-https://github.com/Alejandro-Bravo2/dwesJavaGeoNotes/blob/main/src/main/java/com/example/geonotesteaching/services/Describe.java#L26-L32
+
+https://github.com/Alejandro-Bravo2/dwesJavaGeoNotes/blob/0c78c1b86fbc6b9f0b40863df3fdc85d3e11a856/src/main/java/com/example/geonotesteaching/services/Describe.java#L26C5-L37C6
 
 ### Funcionamiento
+
 El método `mediaPixels(Object o)` comprueba el tipo del objeto recibido:
 - Si es una instancia de `Photo`, calcula su ancho por su alto.
 - Si es una instancia de `Video`, hace lo mismo.
@@ -228,7 +229,8 @@ Lo primero que se hace es mostrar un menú con las pociones disponibles, luego e
 En este bloque se ha trabajado en la clase `GeoNotes`, concretamente en el método `createNote()`, para mejorar la validación de las entradas del usuario al crear una nueva nota.
 
 ### Método modificado en la clase GeoNotes:
-https://github.com/Alejandro-Bravo2/dwesJavaGeoNotes/blob/f478b02558d0b2084fabb77a43f8a9b41a34aaa6/src/main/java/com/example/geonotesteaching/geo/GeoNotes.java#L132
+
+https://github.com/Alejandro-Bravo2/dwesJavaGeoNotes/blob/0c78c1b86fbc6b9f0b40863df3fdc85d3e11a856/src/main/java/com/example/geonotesteaching/geo/GeoNotes.java#L134C5-L177C6
 
 ### Cambios realizados
 Antes si el usuario introducía un texto en lugar de un número al escribir la latitud o longitud, el programa lanzaba una excepción y se detenía.  
@@ -259,9 +261,14 @@ En este bloque se ha trabajado con la clase `Timeline` para aprovechar las nueva
 El objetivo era obtener una vista invertida de las notas sin alterar su orden original.
 
 ### Declaración del mapa y método reversed:
-https://github.com/Alejandro-Bravo2/dwesJavaGeoNotes/blob/main/src/main/java/com/example/geonotesteaching/exporter/Timeline.java#L17-L20
 
-https://github.com/Alejandro-Bravo2/dwesJavaGeoNotes/blob/main/src/main/java/com/example/geonotesteaching/exporter/Timeline.java#L41-L44
+**Declaración del mapa**
+
+https://github.com/Alejandro-Bravo2/dwesJavaGeoNotes/blob/0c78c1b86fbc6b9f0b40863df3fdc85d3e11a856/src/main/java/com/example/geonotesteaching/exporter/Timeline.java#L18
+
+**Método `reserved`**
+
+https://github.com/Alejandro-Bravo2/dwesJavaGeoNotes/blob/0c78c1b86fbc6b9f0b40863df3fdc85d3e11a856/src/main/java/com/example/geonotesteaching/exporter/Timeline.java#L69C5-L71C6
 
 ### Funcionamiento
 El tipo de mapa interno se cambió a `SequencedMap<Long, Note>` para aprovechar la función `reversed()`.  
@@ -270,5 +277,17 @@ Con esto se puede obtener la colección de notas en orden inverso (de la más re
 ### Cambios en la CLI
 Se añadió una opción en el menú llamada **“Listar notas en orden inverso”**, que muestra las notas usando el nuevo método `reversed()`.
 
+https://github.com/Alejandro-Bravo2/dwesJavaGeoNotes/blob/0c78c1b86fbc6b9f0b40863df3fdc85d3e11a856/src/main/java/com/example/geonotesteaching/geo/GeoNotes.java#L119C5-L132C6
+
 ### Resultado
 Con esta mejora, el proyecto incorpora una de las novedades más actuales de **Java 21**, demostrando cómo combinar estructuras clásicas como `LinkedHashMap` con las nuevas APIs modernas para obtener código más claro y funcional.
+
+---
+
+## Autores
+Este proyecto ha sido desarrollado conjuntamente por:
+- **Alejandro Bravo**
+- **Natalia Alejo**
+
+Trabajo realizado dentro del módulo de **Desarrollo Web en entorno servidores (2º DAW)**.
+
