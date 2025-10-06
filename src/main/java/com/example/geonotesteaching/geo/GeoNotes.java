@@ -83,7 +83,8 @@ public class GeoNotes {
                     case 6 -> busquedaAvanzada();
                     case 7 -> ultimasNotas();
                     case 8 -> obtenerNotasPorUbicacion();
-                    case 9 -> running = false;
+                    case 9 -> listarNotasReversed();
+                    case 10 -> running = false;
                     default -> System.out.println("❌ Opción no válida. Inténtalo de nuevo.");
                 }
             } catch (NumberFormatException e) {
@@ -125,7 +126,8 @@ public class GeoNotes {
         System.out.println("6. Busqueda avanzada");
         System.out.println("7. Listar las últimas notas");
         System.out.println("8. Obtener notas por ubicación");
-        System.out.println("9. Salir");
+        System.out.println("9. Listar notas en orden inverso");
+        System.out.println("10. Salir");
         System.out.print("Elige una opción: ");
     }
 
@@ -139,22 +141,27 @@ public class GeoNotes {
         var content = scanner.nextLine();
 
         /*
-         * Lectura robusta de números: mejor parsear desde nextLine() para controlar errores y limpieza del buffer.
-         * (Si fuese una app real, haríamos bucles hasta entrada válida).
+         * Lectura robusta de números: ahora protegida con try/catch
+         * para evitar errores si el usuario introduce texto.
          */
-        System.out.print("Latitud: ");
-        var lat = Double.parseDouble(scanner.nextLine());
-        System.out.print("Longitud: ");
-        var lon = Double.parseDouble(scanner.nextLine());
+        double lat, lon;
         try {
+            System.out.print("Latitud: ");
+            lat = Double.parseDouble(scanner.nextLine().trim());
+            System.out.print("Longitud: ");
+            lon = Double.parseDouble(scanner.nextLine().trim());
+        } catch (NumberFormatException e) {
+            System.out.println("❌ Error: introduce valores numéricos válidos para latitud y longitud.");
+            return;
+        }
 
+        try {
             /*
              * RECORDS (Java 16):
              * - GeoPoint es un record con "compact constructor" que valida rangos (ver clase GeoPoint).
              * - Note también es record; su constructor valida title/location/createdAt.
              * Ventaja: menos boilerplate (constructor/getters/equals/hashCode/toString generados).
              */
-
             var geoPoint = new GeoPoint(lat, lon);
 
             /*
@@ -454,4 +461,20 @@ public class GeoNotes {
             System.out.println("Entrada no válida. Por favor, ingresa un número entero.");
         }
     }
+
+    private static void listarNotasReversed() {
+        System.out.println("\n--- Mostrando las notas en orden inverso ---");
+        var notasInvertidas = timeline.reversed();
+
+        if (notasInvertidas.isEmpty()) {
+            System.out.println("No hay notas creadas todavía.");
+            return;
+        }
+
+        for (var nota : notasInvertidas) {
+            System.out.printf("ID: %d | %s | %s%n",
+                    nota.id(), nota.title(), nota.content());
+        }
+    }
+
 }
