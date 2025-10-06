@@ -98,21 +98,6 @@ public class GeoNotes {
         System.out.println("¡Gracias por usar GeoNotes! 👋");
 
 
-        // MIS PRUEBAS
-        LegacyPoint lgcyPnt = new LegacyPoint(10, 20);
-        LegacyPoint lgcyPnt2 = new LegacyPoint(10, 20);
-        System.out.println(lgcyPnt.hashCode());
-        System.out.println(lgcyPnt2.hashCode());
-
-        System.out.println(lgcyPnt2);
-
-        GeoPoint geoPoint = new GeoPoint(10, 20);
-        GeoPoint geoPoint2 = new GeoPoint(10, 20);
-        System.out.println(geoPoint.hashCode());
-        System.out.println(geoPoint2.hashCode());
-
-        System.out.println(geoPoint2);
-
 
     }
 
